@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  loggingservice:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - ${LOGGINGSERVICE_PORT:-30100}:30100

@@ -1,0 +1,70 @@
+version: "3.8"
+
+services:
+  loggingservice:
+#    image: ${DOCKER_REGISTRY-}loggingservice
+    build:
+      context: .
+      dockerfile: src/LoggingService/Dockerfile
+    ports:
+      - ${LOGGINGSERVICE_PORT:-30100}:30100
+    environment:
+      RABBITMQ_HOSTNAME: ${RABBITMQ_HOSTNAME}
+      RABBITMQ_PORT: ${RABBITMQ_PORT}
+      RABBITMQ_USERNAME: ${RABBITMQ_USERNAME}
+      RABBITMQ_PASSWORD: ${RABBITMQ_PASSWORD}
+      RABBITMQ_VIRTUALHOST: ${RABBITMQ_VIRTUALHOST}
+      RABBITMQ_QUEUE: ${RABBITMQ_QUEUE}
+      MONGODB_HOSTNAME: ${MONGODB_HOSTNAME}
+      MONGODB_PORT: ${MONGODB_PORT}
+      MONGODB_DATABASENAME: ${MONGODB_DATABASENAME}
+      MONGODB_USERNAME: ${MONGODB_USERNAME}
+      MONGODB_PASSWORD: ${MONGODB_PASSWORD}
+  rabbitmq:
+    hostname: "log-rabbit"
+    image: rabbitmq:3-management-alpine
+    ports:
+      - ${RABBITMQ_PORT:-30101}:5672
+      - ${RABBITMQ_MANAGEMENT_PORT:-30102}:15672
+    volumes:
+      - logging_service_rabbitmq_etc/:/etc/rabbitmq/
+      - logging_service_rabbitmq_data/:/var/lib/rabbitmq/
+      - logging_service_rabbitmq_logs/:/var/log/rabbitmq/
+    environment:
+      RABBITMQ_ERLANG_COOKIE: ${RABBITMQ_ERLANG_COOKIE}
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
+  mongodb:
+    image: mongo:4.4.4-bionic
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGODB_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_PASSWORD}
+      MONGO_INITDB_DATABASE : ${MONGODB_DATABASENAME}
+    volumes:
+      - logging_service_mongodb:/data/db
+    ports:
+       - ${MONGO_PORT:-30110}:27017
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+       - ${ME_PORT:-30111}:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGODB_USERNAME}
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGODB_PASSWORD}
+      ME_CONFIG_BASICAUTH_USERNAME: ${MONGODB_USERNAME}
+      ME_CONFIG_BASICAUTH_PASSWORD: ${MONGODB_PASSWORD}
+      ME_CONFIG_MONGODB_SERVER: mongodb
+      ME_CONFIG_MONGODB_PORT: "27017"
+      ME_CONFIG_MONGODB_ENABLE_ADMIN: "true"
+volumes:
+  logging_service_mongodb:
+    external: true  
+  logging_service_rabbitmq_etc:
+    external: true
+  logging_service_rabbitmq_data:
+    external: true
+  logging_service_rabbitmq_logs:
+    external: true

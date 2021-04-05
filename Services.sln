@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31105.61
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{4E180ED7-62B7-40D2-887D-6B8C6A5B8367}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoggingService", "src\LoggingService\LoggingService.csproj", "{CCA9EAB5-58B1-49DD-9360-F6B2DC5DE727}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{E817A6A1-6495-4F6B-8278-11EC2632C6FC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CCA9EAB5-58B1-49DD-9360-F6B2DC5DE727}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCA9EAB5-58B1-49DD-9360-F6B2DC5DE727}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCA9EAB5-58B1-49DD-9360-F6B2DC5DE727}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCA9EAB5-58B1-49DD-9360-F6B2DC5DE727}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E817A6A1-6495-4F6B-8278-11EC2632C6FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E817A6A1-6495-4F6B-8278-11EC2632C6FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E817A6A1-6495-4F6B-8278-11EC2632C6FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E817A6A1-6495-4F6B-8278-11EC2632C6FC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CCA9EAB5-58B1-49DD-9360-F6B2DC5DE727} = {4E180ED7-62B7-40D2-887D-6B8C6A5B8367}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B6CEEDE8-635B-4EDD-8505-FF6896A9F991}
+	EndGlobalSection
+EndGlobal
